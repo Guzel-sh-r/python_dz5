@@ -1,0 +1,2 @@
+dirs: .git, .idea, .pytest_cache, test2, test3, venv, __pycache__
+files: console_manager.py, listdir.txt, main.py, my_account.txt, my_history.txt, python.py, test_python.py, use_functions.py, victory.py, victory2.py

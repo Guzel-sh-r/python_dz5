@@ -4,8 +4,6 @@ import sys
 import victory
 import use_functions
 
-amount_account = 0
-purchase_history = []
 
 while True:
     print('1. создать папку')
@@ -19,7 +17,8 @@ while True:
     print('9. играть в викторину')
     print('10. мой банковский счет')
     print('11. смена рабочей директории')
-    print('12. выход')
+    print('12. сохранить содержимое рабочей директории в файл')
+    print('13. выход')
 
     choice = input('Выберите пункт меню: ')
     if choice == '1':
@@ -62,14 +61,14 @@ while True:
         [print(all_name[i]) for i in range(len(all_name))]
     elif choice == '5':
         all_name = os.listdir()
-        for i in range(len(all_name)):
-            if not '.py' in all_name[i]:
-                print(all_name[i])
+        for i in all_name:
+            if os.path.isdir(i):
+                print(i)
     elif choice == '6':
         all_name = os.listdir()
-        for i in range(len(all_name)):
-            if '.py' in all_name[i]:
-                print(all_name[i])
+        for i in all_name:
+            if os.path.isfile(i):
+                print(i)
     elif choice == '7':
         print('Операционная система:', sys.platform)
     elif choice == '8':
@@ -77,7 +76,7 @@ while True:
     elif choice == '9':
         victory.func_victory()
     elif choice == '10':
-        amount_account, purchase_history = use_functions.func_use_functions(amount_account, purchase_history)
+        use_functions.func_use_functions()
     elif choice == '11':
         cwd = os.getcwd()
         fd = input(f'Ваша рабочая директория сейчас: {cwd} Введите полный \\home\\user\\... путь: ')
@@ -91,6 +90,17 @@ while True:
             os.chdir(cwd)
             print('Восстановление пути к текущему каталогу - ', os.getcwd())
     elif choice == '12':
+        all_name = os.listdir()
+        dirs, files = [], []
+        for i in all_name:
+            if os.path.isdir(i):
+                dirs.append(i)
+            elif os.path.isfile(i):
+                files.append(i)
+        with open('listdir.txt', 'w', encoding='utf-8') as file:
+            file.write(f"dirs: {', '.join(dirs)}\nfiles: {', '.join(files)}")
+        print(f'Cодержимое рабочей директории {os.getcwd()} сохранено в файл listdir.txt')
+    elif choice == '13':
         break
     else:
         print('Неверный пункт меню')
