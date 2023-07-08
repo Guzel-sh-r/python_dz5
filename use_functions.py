@@ -36,8 +36,7 @@ def func_use_functions():
                 with open('my_account.txt', 'w', encoding='utf-8') as my_account:
                     my_account.write(str(amount_account))
                 with open('my_history.txt', 'w', encoding='utf-8') as my_history:
-                    for purchase in purchase_history:
-                        my_history.write(f'{purchase}\n')
+                    [my_history.write(f'{purchase}\n') for purchase in purchase_history]
             else:
                 print('Недостаточно средств на счету')
         elif choice == '3':

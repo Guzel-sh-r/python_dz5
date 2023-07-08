@@ -29,15 +29,14 @@ while True:
         all_name = os.listdir()
         name_path = input('Введите название папки/файла: ')
         if os.path.exists(f'{name_path}'):
-            if '.py' in name_path:
-                try:
-                    os.remove(name_path)
-                    print('Удаление выполнено')
-                except:
-                    print(f'Файл с названием "{name_path}" не найден')
-            else:
+            if os.path.isfile(name_path):
+                os.remove(name_path)
+                print('Удаление выполнено')
+            elif os.path.isdir(name_path):
                 shutil.rmtree(name_path)
                 print('Удаление выполнено')
+            else:
+                print(f'Папка с названием "{name_path}" не найдена')
         else:
             print(f'Папка/файл с названием "{name_path}" не найден')
     elif choice == '3':
@@ -45,10 +44,10 @@ while True:
         name_path = input('Введите название папки/файла для копирования: ')
         if os.path.exists(f'{name_path}'):
             name_copy_path = input('Введите какое название у новой папки/файла будет: ')
-            if '.py' in name_path and '.py' in name_copy_path:
+            if os.path.isfile(name_path) and os.path.isfile(name_copy_path):
                 shutil.copy(name_path, name_copy_path)
                 print('Копирование выполнено')
-            elif not '.py' in name_path or not '.py' in name_copy_path:
+            elif os.path.isdir(name_path) or os.path.isdir(name_copy_path):
                print('НЕ ВЫПОЛНЕНО копирование. Если копируется файл, то в названии должен быть его формат(.py например). А если папка, то формата не должно быть')
             else:
                 shutil.copytree(name_path, name_copy_path, dirs_exist_ok=True)
@@ -61,14 +60,10 @@ while True:
         [print(all_name[i]) for i in range(len(all_name))]
     elif choice == '5':
         all_name = os.listdir()
-        for i in all_name:
-            if os.path.isdir(i):
-                print(i)
+        [print(i) for i in all_name if os.path.isdir(i)]
     elif choice == '6':
         all_name = os.listdir()
-        for i in all_name:
-            if os.path.isfile(i):
-                print(i)
+        [print(i) for i in all_name if os.path.isfile(i)]
     elif choice == '7':
         print('Операционная система:', sys.platform)
     elif choice == '8':
