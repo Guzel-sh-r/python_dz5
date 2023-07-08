@@ -32,6 +32,6 @@ def func_victory():
         print(f"Количество ошибок: {len(result) - n}")
         print(f"Процент правильных ответов: {n * 100 / len(result)} %")
         print(f"Процент неправильных ответов: {(len(result) - n) * 100 / len(result)} %")
-        start = input("Хотите начать игру сначала? ")
+        start = input("Хотите начать игру сначала? (да/нет): ")
         if start == "нет":
             break
